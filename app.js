@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodoverride = require('method-override');
 var hbs = require('hbs');
+var session = require('express-session');
 var connection = require('./models');
 
 var indexRouter = require('./routes/index');
@@ -22,6 +23,9 @@ hbs.registerHelper('equals', (val1, val2, options) => {
   return val1 == val2 ? options.fn(this) : options.inverse(this);
 });
 
+app.use(session({
+  secret: 'parkingsystem',
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
